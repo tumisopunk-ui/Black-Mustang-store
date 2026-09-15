@@ -3,6 +3,9 @@ import {
   ShoppingCart, Menu, X, Star, Plus, Minus, Check, ChevronDown,
   ChevronRight, ChevronLeft, Truck, Leaf, ShieldCheck, Lock, ArrowRight,
 } from "lucide-react";
+import logoImg from "./assets/logo.jpg";
+import brandVideo from "./assets/brand-video.mp4";
+import brandVideoPoster from "./assets/brand-video-poster.jpg";
 
 /* ---------------------------------- THEME ---------------------------------- */
 const C = {
@@ -230,25 +233,28 @@ function Stars({ rating, size = 14 }) {
 }
 
 /* ---------------------------------- HEADER ---------------------------------- */
-function Header({ view, setView, cartCount }) {
+function Header({ view, onNav, cartCount }) {
   const [open, setOpen] = useState(false);
   const nav = [
     { k: "home", label: "Home" },
     { k: "pdp", label: "Shop" },
-    { k: "faq", label: "FAQ" },
+    { k: "about-section", label: "About" },
+    { k: "faq-section", label: "FAQ" },
   ];
   return (
     <header style={{ position: "sticky", top: 0, zIndex: 40, background: "rgba(11,11,13,0.92)", backdropFilter: "blur(8px)", borderBottom: `1px solid ${C.border}` }}>
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "14px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }} onClick={() => setView("home")}>
-          <Horseshoe size={26} />
+        <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }} onClick={() => onNav("home")}>
+          <div style={{ width: 38, height: 38, borderRadius: 8, overflow: "hidden", flexShrink: 0, border: `1px solid ${C.border}` }}>
+            <img src={logoImg} alt="Black Mustang" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
+          </div>
           <Wordmark size={0.72} />
         </div>
         <nav style={{ display: "flex", gap: 28 }} className="bm-nav-desktop">
           {nav.map((n) => (
             <button
               key={n.k}
-              onClick={() => setView(n.k === "faq" ? "home" : n.k)}
+              onClick={() => onNav(n.k)}
               className="bm-display"
               style={{ background: "none", border: "none", color: view === n.k ? C.silver : C.textDim, fontSize: 13, letterSpacing: 1.5, cursor: "pointer", paddingBottom: 4, borderBottom: view === n.k ? `2px solid ${C.red}` : "2px solid transparent" }}
             >
@@ -277,10 +283,7 @@ function Footer({ setView }) {
     <footer style={{ borderTop: `1px solid ${C.border}`, background: C.bgAlt, marginTop: 80 }}>
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "48px 20px 28px", display: "flex", flexWrap: "wrap", gap: 40, justifyContent: "space-between" }}>
         <div style={{ maxWidth: 280 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-            <Horseshoe size={22} />
-            <Wordmark size={0.6} />
-          </div>
+          <img src={logoImg} alt="Black Mustang" style={{ height: 84, width: "auto", marginBottom: 14, borderRadius: 8 }} />
           <p style={{ fontSize: 12.5, color: C.textDim, lineHeight: 1.6 }}>
             Wild-harvested Mpesu root, ground pure. One product. No shortcuts.
           </p>
@@ -375,6 +378,45 @@ function Home({ setView, addToCart }) {
         </div>
       </section>
 
+      {/* ABOUT US */}
+      <section id="about-section" style={{ maxWidth: 1180, margin: "0 auto", padding: "88px 20px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 18 }}>
+          <span style={{ width: 26, height: 2, background: C.red }} />
+          <span style={{ fontSize: 12.5, color: C.silverDim, letterSpacing: 2 }}>Who we are</span>
+          <span style={{ width: 26, height: 2, background: C.red }} />
+        </div>
+        <h2 className="bm-display" style={{ fontSize: "clamp(28px,3.4vw,40px)", fontWeight: 700, margin: 0, marginBottom: 20, textAlign: "center" }}>
+          Built by students who believe in African medicine.
+        </h2>
+        <p style={{ fontSize: 15.5, color: C.textDim, lineHeight: 1.75, maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
+          Black Mustang is run by a small team of university students who share two things: a love of health
+          sciences, and a belief that African traditional medicine deserves the same care, quality, and respect
+          as anything on a pharmacy shelf. We started this because we want African remedies taken seriously —
+          beginning with a root our own communities have trusted for generations.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 24, marginTop: 48 }} className="bm-three-grid">
+          <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: 28 }}>
+            <div className="bm-display" style={{ fontSize: 12.5, letterSpacing: 1.5, color: C.red, marginBottom: 10 }}>GROWING &amp; HARVESTING</div>
+            <div className="bm-display" style={{ fontSize: 22, fontWeight: 700, marginBottom: 10 }}>Venda, Limpopo</div>
+            <p style={{ fontSize: 13.5, color: C.textDim, lineHeight: 1.65 }}>
+              Our Mpesu root is grown and wild-harvested with local farmers in Venda, where the soil and climate
+              suit the plant best — and where our own roots are too.
+            </p>
+          </div>
+          <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: 28 }}>
+            <div className="bm-display" style={{ fontSize: 12.5, letterSpacing: 1.5, color: C.red, marginBottom: 10 }}>PACKAGING &amp; QUALITY CONTROL</div>
+            <div className="bm-display" style={{ fontSize: 22, fontWeight: 700, marginBottom: 10 }}>Johannesburg, Gauteng</div>
+            <p style={{ fontSize: 13.5, color: C.textDim, lineHeight: 1.65 }}>
+              The root is dried, ground, tested, and packed by our team in Johannesburg, where we're based as
+              students keeping a close eye on quality from harvest to pouch.
+            </p>
+          </div>
+        </div>
+        <p style={{ textAlign: "center", marginTop: 40, fontSize: 13.5, color: C.silverDim, fontStyle: "italic" }}>
+          Our mission: to help heal the nation, one root at a time.
+        </p>
+      </section>
+
       {/* ABOUT MPESU */}
       <section id="root-cause" style={{ maxWidth: 1180, margin: "0 auto", padding: "88px 20px", display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: 56, alignItems: "center" }} className="bm-hero-grid">
         <div style={{ position: "relative", display: "flex", justifyContent: "center" }}>
@@ -397,6 +439,33 @@ function Home({ setView, addToCart }) {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* BRAND VIDEO */}
+      <section style={{ maxWidth: 1180, margin: "0 auto", padding: "0 20px 90px", display: "grid", gridTemplateColumns: "1fr 0.85fr", gap: 48, alignItems: "center" }} className="bm-hero-grid">
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+            <span style={{ width: 26, height: 2, background: C.red }} />
+            <span style={{ fontSize: 12.5, color: C.silverDim, letterSpacing: 2 }}>See it up close</span>
+          </div>
+          <h2 className="bm-display" style={{ fontSize: "clamp(26px,3.2vw,36px)", fontWeight: 700, margin: 0, marginBottom: 16 }}>From root to pouch.</h2>
+          <p style={{ fontSize: 15, color: C.textDim, lineHeight: 1.75, maxWidth: 440 }}>
+            A quick look at the powder itself — pure Mpesu root, ground fine, with nothing else mixed in.
+          </p>
+        </div>
+        <div style={{ position: "relative", justifySelf: "center" }}>
+          <div style={{ position: "absolute", inset: -14, background: `linear-gradient(160deg, ${C.redDark}, transparent 60%)`, borderRadius: 20, opacity: 0.5, zIndex: 0 }} />
+          <video
+            src={brandVideo}
+            poster={brandVideoPoster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{ position: "relative", zIndex: 1, width: 280, maxWidth: "100%", aspectRatio: "3/4", objectFit: "cover", borderRadius: 14, border: `1px solid ${C.border}`, display: "block" }}
+          />
         </div>
       </section>
 
@@ -441,7 +510,7 @@ function Home({ setView, addToCart }) {
       </section>
 
       {/* FAQ */}
-      <section style={{ background: C.bgAlt, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
+      <section id="faq-section" style={{ background: C.bgAlt, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
         <div style={{ maxWidth: 760, margin: "0 auto", padding: "80px 20px" }}>
           <h2 className="bm-display" style={{ fontSize: "clamp(26px,3vw,34px)", fontWeight: 700, marginBottom: 30, textAlign: "center" }}>Questions, answered</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -736,6 +805,16 @@ export default function App() {
   const removeItem = (id) => setCart((prev) => prev.filter((i) => i.id !== id));
   const cartCount = cart.reduce((s, i) => s + i.qty, 0);
 
+  const goTo = (key) => {
+    if (key === "home" || key === "pdp") {
+      setView(key);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    setView("home");
+    setTimeout(() => document.getElementById(key)?.scrollIntoView({ behavior: "smooth" }), 60);
+  };
+
   return (
     <div className="bm-root" style={{ minHeight: "100vh" }}>
       <style>{FONTS}</style>
@@ -746,7 +825,7 @@ export default function App() {
           .bm-nav-desktop { display: none !important; }
         }
       `}</style>
-      <Header view={view} setView={setView} cartCount={cartCount} />
+      <Header view={view} onNav={goTo} cartCount={cartCount} />
       {view === "home" && <Home setView={setView} addToCart={addToCart} />}
       {view === "pdp" && <PDP addToCart={addToCart} setView={setView} />}
       {view === "cart" && <Cart cart={cart} updateQty={updateQty} removeItem={removeItem} setView={setView} />}
